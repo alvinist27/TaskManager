@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Domain;
-using TaskManager.Infrastructure.Data;
+using TaskManager.Infrastructure;
 
 namespace TaskManager.API.Controllers
 {

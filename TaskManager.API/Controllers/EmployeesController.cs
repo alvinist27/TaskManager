@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Domain;
-using TaskManager.Infrastructure.Data;
+using TaskManager.Infrastructure;
 
 namespace TaskManager.API.Controllers
 {
@@ -15,17 +15,20 @@ namespace TaskManager.API.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly Context _context;
+        private readonly EmployeesRepository _repository;
+
 
         public EmployeesController(Context context)
         {
             _context = context;
+            _repository = new EmployeesRepository(context);
         }
 
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _repository.GetEmployeesAsync();
         }
 
         // GET: api/Employees/5
@@ -78,8 +81,7 @@ namespace TaskManager.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
+            await _repository.AddAsync(employee);
 
             return CreatedAtAction("GetEmployee", new { id = employee.EmployeeID }, employee);
         }
@@ -104,5 +106,16 @@ namespace TaskManager.API.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeID == id);
         }
+
+        /*public async Task<ActionResult<Employee>> GetEmployee(Guid ID)
+        {
+            var user = await _repository.GetEmployee(ID);
+
+            if (user == null) 
+            {
+                return NotFound();
+            }
+            return user;
+        }*/
     }
 }

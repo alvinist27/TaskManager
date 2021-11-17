@@ -33,7 +33,7 @@ namespace TaskManager.API
 
             services.AddControllers();
 
-            services.AddDbContext<TaskManager.Infrastructure.Data.Context>(options =>
+            services.AddDbContext<TaskManager.Infrastructure.Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TaskManagerContext")));
 
             services.AddSwaggerGen(c =>

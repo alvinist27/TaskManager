@@ -7,7 +7,7 @@ using TaskManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Task = TaskManager.Domain.Task;
 
-namespace TaskManager.Infrastructure.Data
+namespace TaskManager.Infrastructure
 {
     public class Context : DbContext
     {
