@@ -22,23 +22,36 @@ namespace TaskManager.Infrastructure
 
         public EmployeesRepository(Context context)
         {
-            _context = context ?? throw new ArgumentNullException();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Employee>> GetEmployeesAsync()
+        public async Task<List<Employee>> GetAllAsync()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.OrderBy(p => p.EName).ToListAsync();
+        }
+
+        public async Task<Employee> GetByIdAsync(Guid id)
+        {
+            return await _context.Employees.FindAsync(id);
         }
 
         public async System.Threading.Tasks.Task AddAsync(Employee employee)
         {
-            await _context.Employees.AddAsync(employee);
+            _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Employee> GetEmployee(Guid ID)
+        public async System.Threading.Tasks.Task UpdateAsync(Employee employee)
         {
-            return await _context.Employees.FindAsync(ID);
+            var existEmployee = await _context.Employees.FindAsync(employee.EmployeeID);
+            _context.Entry(existEmployee).CurrentValues.SetValues(employee);
+            await _context.SaveChangesAsync();
+        }
+        public async System.Threading.Tasks.Task DeleteAsync(Guid id)
+        {
+            Employee employee = await _context.Employees.FindAsync(id);
+            _context.Remove(employee);
+            await _context.SaveChangesAsync();
         }
     }
 }

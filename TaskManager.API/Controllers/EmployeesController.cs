@@ -16,26 +16,24 @@ namespace TaskManager.API.Controllers
     {
         private readonly Context _context;
         private readonly EmployeesRepository _repository;
-
-
         public EmployeesController(Context context)
         {
             _context = context;
-            _repository = new EmployeesRepository(context);
+            _repository = new EmployeesRepository(_context);
         }
 
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _repository.GetEmployeesAsync();
+            return await _repository.GetAllAsync();
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(Guid id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await _repository.GetByIdAsync(id);
 
             if (employee == null)
             {
@@ -55,6 +53,7 @@ namespace TaskManager.API.Controllers
                 return BadRequest();
             }
 
+            /*
             _context.Entry(employee).State = EntityState.Modified;
 
             try
@@ -72,6 +71,9 @@ namespace TaskManager.API.Controllers
                     throw;
                 }
             }
+            */
+
+            await _repository.UpdateAsync(employee);
 
             return NoContent();
         }
@@ -90,14 +92,16 @@ namespace TaskManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(Guid id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            //var employee = await _context.Employees.FindAsync(id);
+            var employee = await _repository.GetByIdAsync(id);
             if (employee == null)
             {
                 return NotFound();
             }
 
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            //_context.Employees.Remove(employee);
+            //await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(id);
 
             return NoContent();
         }
@@ -106,16 +110,5 @@ namespace TaskManager.API.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeID == id);
         }
-
-        /*public async Task<ActionResult<Employee>> GetEmployee(Guid ID)
-        {
-            var user = await _repository.GetEmployee(ID);
-
-            if (user == null) 
-            {
-                return NotFound();
-            }
-            return user;
-        }*/
     }
 }

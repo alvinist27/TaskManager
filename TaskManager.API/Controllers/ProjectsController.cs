@@ -15,24 +15,27 @@ namespace TaskManager.API.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly Context _context;
-
+        private readonly ProjectsRepository _repository;
         public ProjectsController(Context context)
         {
             _context = context;
+            _repository = new ProjectsRepository(_context);
         }
 
         // GET: api/Projects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            //return await _context.Projects.ToListAsync();
+            return await _repository.GetAllAsync();
         }
 
         // GET: api/Projects/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(Guid id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            //var project = await _context.Projects.FindAsync(id);
+            var project = await _repository.GetByIdAsync(id);
 
             if (project == null)
             {
@@ -52,6 +55,7 @@ namespace TaskManager.API.Controllers
                 return BadRequest();
             }
 
+            /*
             _context.Entry(project).State = EntityState.Modified;
 
             try
@@ -69,6 +73,9 @@ namespace TaskManager.API.Controllers
                     throw;
                 }
             }
+            */
+
+            await _repository.UpdateAsync(project);
 
             return NoContent();
         }
@@ -78,9 +85,10 @@ namespace TaskManager.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
-            _context.Projects.Add(project);
-            await _context.SaveChangesAsync();
+            //_context.Projects.Add(project);
+            //await _context.SaveChangesAsync();
 
+            await _repository.AddAsync(project);
             return CreatedAtAction("GetProject", new { id = project.ProjectID }, project);
         }
 
@@ -88,14 +96,17 @@ namespace TaskManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(Guid id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            //var project = await _context.Projects.FindAsync(id);
+            var project = await _repository.GetByIdAsync(id);
+
             if (project == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
-            await _context.SaveChangesAsync();
+            //_context.Projects.Remove(project);
+            //await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(id);
 
             return NoContent();
         }
