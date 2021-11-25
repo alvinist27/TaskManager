@@ -15,7 +15,7 @@ namespace TestProject
         Guid guid_value1 = new Guid("0DD62430-80CA-44A5-B16D-5FBF0432406B");
 
         List<TaskManager.Domain.Task> list = new List<TaskManager.Domain.Task>();
-        //???
+        //заполнить
 
         [Fact]
         public void TestAdd()
