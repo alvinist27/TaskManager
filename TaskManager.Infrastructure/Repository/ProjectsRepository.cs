@@ -30,18 +30,18 @@ namespace TaskManager.Infrastructure
         {
             return await _context.Projects.FindAsync(id);
         }
-        public async System.Threading.Tasks.Task AddAsync(Project project)
+        public async Task AddAsync(Project project)
         {
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
         }
-        public async System.Threading.Tasks.Task UpdateAsync(Project project)
+        public async Task UpdateAsync(Project project)
         {
             var existProject = await _context.Projects.FindAsync(project.ProjectID);
             _context.Entry(existProject).CurrentValues.SetValues(project);
             await _context.SaveChangesAsync();
         }
-        public async System.Threading.Tasks.Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             Project project = await _context.Projects.FindAsync(id);
             _context.Remove(project);

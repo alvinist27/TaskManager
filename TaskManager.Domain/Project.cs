@@ -10,6 +10,6 @@ namespace TaskManager.Domain
     {
         public Guid ProjectID { get; set; }
         public string PName { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<Mission> Missions { get; set; }
     }
 }

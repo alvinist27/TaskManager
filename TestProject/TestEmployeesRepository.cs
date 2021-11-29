@@ -14,7 +14,7 @@ namespace TestProject
 
         Guid guid_value1 = new Guid("0DD62430-80CA-44A5-B16D-5FBF0432406B");
 
-        List<TaskManager.Domain.Task> list = new List<TaskManager.Domain.Task>();
+        List<Mission> list = new List<Mission>();
         //заполнить
 
         [Fact]
@@ -23,7 +23,7 @@ namespace TestProject
             var testHelper = new TestHelper();
             var employeesRepository = testHelper.EmployeesRepository;
 
-            Employee person = new Employee { EmployeeID = guid_value1, EName = "Nic", EWork = "Строитель", Tasks = list };
+            Employee person = new Employee { EmployeeID = guid_value1, EName = "Nic", EWork = "Строитель", Missions = list };
             employeesRepository.AddAsync(person).Wait();
 
             Assert.Equal(guid_value1, employeesRepository.GetByIdAsync(guid_value1).Result.EmployeeID);
@@ -43,7 +43,7 @@ namespace TestProject
             var id_1 = new Guid(id);
             var expected_id = new Guid(expected);
 
-            Employee person = new Employee { EmployeeID = id_1, EName = "Nic", EWork = "Строитель", Tasks = list };
+            Employee person = new Employee { EmployeeID = id_1, EName = "Nic", EWork = "Строитель", Missions = list };
             employeesRepository.AddAsync(person).Wait();
 
             Assert.Equal(expected_id, employeesRepository.GetByIdAsync(id_1).Result.EmployeeID);

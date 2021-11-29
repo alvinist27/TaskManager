@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Domain
 {
-    public class Task
+    public class Mission
     {
-        public Guid TaskID { get; set; }
-        public string TName { get; set; }
-        public string TStatus { get; set; }
-        public string TType { get; set; }
-        public string TDescription { get; set; }
+        public Guid MissionID { get; set; }
+        public string MName { get; set; }
+        public string MStatus { get; set; }
+        public string MType { get; set; }
+        public string MDescription { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public Guid ProjectID { get; set; }

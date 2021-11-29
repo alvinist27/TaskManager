@@ -8,10 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TaskManager.Infrastructure
 {
-    public class EmployeesRepository
+    public class MissionsRepository
     {
         private readonly Context _context;
-
         public Context UnitOfWork
         {
             get
@@ -19,38 +18,33 @@ namespace TaskManager.Infrastructure
                 return _context;
             }
         }
-
-        public EmployeesRepository(Context context)
+        public MissionsRepository(Context context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
-        public async Task<List<Employee>> GetAllAsync()
+        public async Task<List<Mission>> GetAllAsync()
         {
-            return await _context.Employees.OrderBy(p => p.EName).ToListAsync();
+            return await _context.Missions.OrderBy(p => p.MName).ToListAsync();
         }
-
-        public async Task<Employee> GetByIdAsync(Guid id)
+        public async Task<Mission> GetByIdAsync(Guid id)
         {
-            return await _context.Employees.FindAsync(id);
+            return await _context.Missions.FindAsync(id);
         }
-
-        public async Task AddAsync(Employee employee)
+        public async Task AddAsync(Mission mission)
         {
-            _context.Employees.Add(employee);
+            _context.Missions.Add(mission);
             await _context.SaveChangesAsync();
         }
-
-        public async Task UpdateAsync(Employee employee)
+        public async Task UpdateAsync(Mission mission)
         {
-            var existEmployee = await _context.Employees.FindAsync(employee.EmployeeID);
-            _context.Entry(existEmployee).CurrentValues.SetValues(employee);
+            var existPerson = await _context.Missions.FindAsync(mission.MissionID);
+            _context.Entry(existPerson).CurrentValues.SetValues(mission);
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Guid id)
         {
-            Employee employee = await _context.Employees.FindAsync(id);
-            _context.Remove(employee);
+            Mission person = await _context.Missions.FindAsync(id);
+            _context.Remove(person);
             await _context.SaveChangesAsync();
         }
     }

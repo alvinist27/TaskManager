@@ -39,11 +39,11 @@ namespace TestProject
                 return new ProjectsRepository(_context);
             }
         }
-        public TasksRepository TasksRepository
+        public MissionsRepository TasksRepository
         {
             get
             {
-                return new TasksRepository(_context);
+                return new MissionsRepository(_context);
             }
         }
     }

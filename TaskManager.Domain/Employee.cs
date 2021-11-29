@@ -11,6 +11,6 @@ namespace TaskManager.Domain
         public Guid EmployeeID { get; set; }
         public string EName { get; set; }
         public string EWork { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<Mission> Missions { get; set; }
     }
 }
