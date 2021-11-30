@@ -26,7 +26,6 @@ namespace TestProject
         List<Mission> missions_list = new List<Mission>();
        
 
-
         [Fact]
         public void TestAdd()
         {
