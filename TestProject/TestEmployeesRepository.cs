@@ -38,7 +38,6 @@ namespace TestProject
             employeesRepository.AddAsync(person).Wait();
 
             Assert.Equal(guid_value1, employeesRepository.GetByIdAsync(guid_value1).Result.EmployeeID);
-            Assert.True(employeesRepository.GetAllAsync().Result.Count == 1);
             Assert.Equal("Nic", employeesRepository.GetByIdAsync(guid_value1).Result.EName);
         }
 

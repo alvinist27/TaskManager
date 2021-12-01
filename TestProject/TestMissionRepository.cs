@@ -19,9 +19,7 @@ namespace TestProject
             var testHelper = new TestHelper();
             var missionsRepository = testHelper.MissionsRepository;
 
-            Mission mission = new Mission
-            {
-                MissionID = guid_value1, MName = "Создать БД", MDescription = "Создания БД с использованием SQLServer",
+            Mission mission = new Mission{ MissionID = guid_value1, MName = "Создать БД", MDescription = "Создания БД с использованием SQLServer",
                 DateStart = new DateTime(2021, 11, 20), DateEnd = new DateTime(), Employee = new Employee(), Project = new Project(),
                 EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324223"), ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324224"),
                 MStatus = "В процессе", MType = "Технологический отдел"
@@ -30,7 +28,6 @@ namespace TestProject
             missionsRepository.AddAsync(mission).Wait();
 
             Assert.Equal(guid_value1, missionsRepository.GetByIdAsync(guid_value1).Result.MissionID);
-            Assert.True(missionsRepository.GetAllAsync().Result.Count == 1);
             Assert.Equal("Создать БД", missionsRepository.GetByIdAsync(guid_value1).Result.MName);
         }
 
@@ -46,19 +43,10 @@ namespace TestProject
             var id_1 = new Guid(id);
             var expected_id = new Guid(expected);
 
-            Mission mission = new Mission
-            {
-                MissionID = id_1,
-                MName = "Создать БД",
-                MDescription = "Создания БД с использованием SQLServer",
-                DateStart = new DateTime(2021, 11, 20),
-                DateEnd = new DateTime(),
-                Employee = new Employee(),
-                Project = new Project(),
-                EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324288"),
-                ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324289"),
-                MStatus = "В процессе",
-                MType = "Технологический отдел"
+            Mission mission = new Mission { MissionID = id_1, MName = "Создать БД", MDescription = "Создания БД с использованием SQLServer",
+                DateStart = new DateTime(2021, 11, 20), DateEnd = new DateTime(), Employee = new Employee(), Project = new Project(),
+                EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324288"), ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324289"),
+                MStatus = "В процессе", MType = "Технологический отдел"
             };
             missionsRepository.AddAsync(mission).Wait();
 

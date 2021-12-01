@@ -14,18 +14,16 @@ namespace TestProject
         Guid guid_value2 = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324333");
 
         Mission mission1 = new Mission { MissionID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324341"),
-            MName = "Создать БД", MDescription = "Создания БД с использованием SQLServer", 
-            DateStart = new DateTime(2021, 11, 20), DateEnd = new DateTime(), Employee = new Employee(),
-            Project = new Project(), EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324342"),
-            ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324343"), MStatus = "В процессе",
-            MType = "Технологический отдел"
+            MName = "Создать БД", MDescription = "Создания БД с использованием SQLServer", DateStart = new DateTime(2021, 11, 20),
+            DateEnd = new DateTime(), Employee = new Employee(), Project = new Project(), 
+            EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324342"), ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324343"), 
+            MStatus = "В процессе", MType = "Технологический отдел"
         };
         Mission mission2 = new Mission { MissionID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324351"),
-            MName = "Написать программу", MDescription = "Написать программу на C##",
-            DateStart = new DateTime(2021, 11, 25), DateEnd = new DateTime(2021, 11, 28), Employee = new Employee(),
-            Project = new Project(), EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324352"),
-            ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324353"), MStatus = "Завершено",
-            MType = "Технологический отдел"
+            MName = "Написать программу", MDescription = "Написать программу на C##", DateStart = new DateTime(2021, 11, 25),
+            DateEnd = new DateTime(2021, 11, 28), Employee = new Employee(), Project = new Project(),
+            EmployeeID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324352"), ProjectID = new Guid("0DD62430-80CA-44A5-B16D-5FBF04324353"), 
+            MStatus = "Завершено", MType = "Технологический отдел"
         };
         List<Mission> missions_list = new List<Mission>();
 
@@ -41,7 +39,6 @@ namespace TestProject
             projectsRepository.AddAsync(project).Wait();
 
             Assert.Equal(guid_value2, projectsRepository.GetByIdAsync(guid_value2).Result.ProjectID);
-            Assert.True(projectsRepository.GetAllAsync().Result.Count == 1);
             Assert.Equal("Заказ", projectsRepository.GetByIdAsync(guid_value2).Result.PName);
         }
 
